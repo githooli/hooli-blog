@@ -2,14 +2,13 @@ backend:
   name: github
   repo: githooli/hooli-blog
   branch: main
-  base_url: ""  # OAuth 中转地址，稍后配置
+  base_url: https://hooli-cms-auth.17708744.workers.dev
   auth_endpoint: auth
 
-# 图片过大自动压缩
+# 图片会存到 static/img，页面里用 /img/xxx 引用
 media_folder: static/img
 public_folder: /img
 
-# 中文界面
 locale: zh_Hans
 
 collections:
@@ -37,7 +36,10 @@ collections:
         default: 生活
       - { label: 标签, name: tags, widget: list, required: false, default: [] }
       - { label: 封面图, name: image, widget: image, required: false }
-      - { label: 正文, name: body, widget: markdown }
+      - label: 正文
+        name: body
+        widget: markdown
+        hint: "想加音乐？先打开 hooli.cc/music 找到歌，复制代码再粘到这里"
       - { label: 草稿, name: draft, widget: boolean, default: false }
 
   - name: page

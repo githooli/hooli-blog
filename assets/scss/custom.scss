@@ -71,6 +71,55 @@
     box-shadow: 0 4px 28px rgba(0, 0, 0, 0.4);
 }
 
+// 音乐卡片（music 短代码）：标题 + 播放器，卡片式包一层
+.music-card {
+    margin: 1.8em 0;
+    padding: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+[data-scheme="light"] .music-card {
+    border-color: rgba(0, 0, 0, 0.08);
+    background: rgba(0, 0, 0, 0.015);
+}
+
+.music-card__meta {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6em;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.music-card__title {
+    font-size: 1.45rem;
+    font-weight: 600;
+    color: var(--card-text-color-main);
+}
+
+.music-card__artist {
+    font-size: 1.25rem;
+    color: var(--card-text-color-secondary);
+}
+
+.music-card__player {
+    display: block;
+    width: 100% !important;
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+// 短代码内的播放器不要再叠一层 margin / 阴影
+.music-card .music-card__player {
+    margin: 0;
+    box-shadow: none;
+}
+
+
 // 图片说明文字
 .article-content em {
     color: var(--card-text-color-secondary);

@@ -1,0 +1,39 @@
+{{- /*
+  网易云音乐播放器短代码
+  用法：
+    {{< music id="1824045033" >}}
+    {{< music id="1824045033" name="漠河舞厅" artist="柳爽" >}}
+    {{< music id="1824045033" type="2" auto="1" >}}
+
+  参数：
+    id     必填，歌曲 ID（type=2 时是歌曲ID，type=1 时是歌单ID）
+    type   1=歌单 2=单曲 3=专辑 4=电台 默认 2
+    auto   1=自动播放 0=不自动 默认 0
+       （重要：浏览器策略下 auto=1 多半会被拦截，建议保持 0）
+*/ -}}
+{{- $id := .Get "id" -}}
+{{- $type := .Get "type" | default "2" -}}
+{{- $auto := .Get "auto" | default "0" -}}
+{{- $name := .Get "name" -}}
+{{- $artist := .Get "artist" -}}
+{{- $height := cond (eq $type "2") "110" "450" -}}
+<div class="music-card">
+  {{- with $name }}
+  <div class="music-card__meta">
+    <span class="music-card__title">{{ . }}</span>
+    {{- with $artist }}<span class="music-card__artist">{{ . }}</span>{{ end }}
+  </div>
+  {{- end }}
+  <iframe
+    class="music-card__player"
+    frameborder="no"
+    border="0"
+    marginwidth="0"
+    marginheight="0"
+    width="100%"
+    height="{{ $height }}"
+    src="//music.163.com/outchain/player?type={{ $type }}&id={{ $id }}&auto={{ $auto }}&height={{ cond (eq $type "2") "66" "430" }}"
+    loading="lazy"
+    allow="autoplay"
+  ></iframe>
+</div>
