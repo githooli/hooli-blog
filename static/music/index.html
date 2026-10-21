@@ -300,6 +300,13 @@
   $q.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') { e.preventDefault(); $q.blur(); search(); }
   });
+
+  // 支持 ?q=歌名 直接搜
+  const preset = new URLSearchParams(location.search).get('q');
+  if (preset) {
+    $q.value = preset;
+    search();
+  }
 })();
 </script>
 </body>
