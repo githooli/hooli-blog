@@ -113,6 +113,54 @@
     overflow: hidden;
 }
 
+// 移动端跳转按钮：默认隐藏，窄屏时替换 iframe（网易云手机 UA 返回空白页，没法内嵌）
+.music-card__mobile {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    background: rgba(245, 158, 11, 0.12);
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    color: var(--accent-color);
+    font-size: 1.4rem;
+    font-weight: 500;
+    text-decoration: none;
+    line-height: 1.4;
+}
+
+.music-card__mobile:active {
+    filter: brightness(0.88);
+}
+
+.music-card__playicon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 999px;
+    background: var(--accent-color);
+    color: #1a1200;
+    font-size: 1.2rem;
+    flex: none;
+}
+
+[data-scheme="light"] .music-card__mobile {
+    background: rgba(217, 119, 6, 0.08);
+    border-color: rgba(217, 119, 6, 0.35);
+}
+
+@media (max-width: 768px) {
+    .music-card__embed {
+        display: none;
+    }
+
+    .music-card__mobile {
+        display: flex;
+    }
+}
+
 // 短代码内的播放器不要再叠一层 margin / 阴影
 .music-card .music-card__player {
     margin: 0;

@@ -223,7 +223,7 @@
       $status.textContent = currentQuery ? '没搜到，换个关键词试试' : '';
       return;
     }
-    $status.textContent = `找到 ${songs.length} 首，点「试听」可以直接听`;
+    $status.textContent = `找到 ${songs.length} 首，点「去试听」打开网易云试听`;
 
     songs.forEach((song) => {
       const el = document.createElement('div');
@@ -243,32 +243,16 @@
 
       const playBtn = document.createElement('button');
       playBtn.className = 'mini primary';
-      playBtn.textContent = '试听';
+      playBtn.textContent = '去试听 ▸';
 
       const copyBtn = document.createElement('button');
       copyBtn.className = 'mini';
       copyBtn.textContent = '复制代码';
 
-      const slot = document.createElement('div');
-      slot.className = 'player-slot';
-
+      // 网易云对手机 UA 返回空的外链页面，iframe 内嵌在手机上不可靠，
+      // 所以直接新窗口打开网易云歌曲页（手机上会拉起 App 或可播放的网页）
       playBtn.addEventListener('click', () => {
-        const open = slot.querySelector('iframe');
-        if (open) {
-          slot.innerHTML = '';
-          playBtn.textContent = '试听';
-          el.classList.remove('active');
-          return;
-        }
-        const iframe = document.createElement('iframe');
-        iframe.frameborder = 'no';
-        iframe.height = '86';
-        iframe.loading = 'lazy';
-        iframe.allow = 'autoplay';
-        iframe.src = `https://auth.hooli.cc/music/player?type=2&id=${song.id}&auto=0&height=66`;
-        slot.appendChild(iframe);
-        playBtn.textContent = '收起';
-        el.classList.add('active');
+        window.open(`https://music.163.com/song?id=${song.id}`, '_blank', 'noopener');
       });
 
       copyBtn.addEventListener('click', async () => {
@@ -283,7 +267,7 @@
       });
 
       actions.append(playBtn, copyBtn);
-      el.append(title, meta, actions, slot);
+      el.append(title, meta, actions);
       $results.appendChild(el);
     });
   }
