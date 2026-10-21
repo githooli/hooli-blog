@@ -5,8 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
   <title>内容管理 · hooli.cc</title>
+  <style>
+    .fab-music {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 99999;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: #f59e0b;
+      color: #1a1200;
+      font: 600 14px/1 -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+      text-decoration: none;
+      box-shadow: 0 4px 16px rgba(0,0,0,.35);
+    }
+    .fab-music:active { filter: brightness(.88); }
+  </style>
 </head>
 <body>
+  <a class="fab-music" href="/music/" target="_blank" rel="noopener">🎵 找歌</a>
   <script src="https://unpkg.com/@sveltia/cms@^0.60.0/dist/sveltia-cms.js"></script>
 </body>
 </html>

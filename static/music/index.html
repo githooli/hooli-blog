@@ -126,9 +126,28 @@
   }
   .tips ol { padding-left: 18px; margin: 8px 0 0; }
   .tips li { margin-bottom: 6px; }
+
+  .fab-admin {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    z-index: 99999;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: #f59e0b;
+    color: #1a1200;
+    font: 600 14px/1 inherit;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(0,0,0,.5);
+  }
+  .fab-admin:active { filter: brightness(.88); }
 </style>
 </head>
 <body>
+<a class="fab-admin" href="/admin/" target="_blank" rel="noopener">✏️ 进后台</a>
 <div class="wrap">
   <header>
     <h1>找一首歌</h1>
@@ -246,7 +265,7 @@
         iframe.height = '86';
         iframe.loading = 'lazy';
         iframe.allow = 'autoplay';
-        iframe.src = `//music.163.com/outchain/player?type=2&id=${song.id}&auto=0&height=66`;
+        iframe.src = `https://auth.hooli.cc/music/player?type=2&id=${song.id}&auto=0&height=66`;
         slot.appendChild(iframe);
         playBtn.textContent = '收起';
         el.classList.add('active');
