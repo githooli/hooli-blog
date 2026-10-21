@@ -1,8 +1,8 @@
 backend:
   name: github
-  repo: YOUR_GITHUB_USER/hooli-blog
+  repo: githooli/hooli-blog
   branch: main
-  base_url: https://hooli-oauth.YOUR_SUBDOMAIN.workers.dev
+  base_url: ""  # OAuth 中转地址，稍后配置
   auth_endpoint: auth
 
 # 图片过大自动压缩

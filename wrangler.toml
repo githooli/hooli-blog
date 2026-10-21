@@ -1,0 +1,6 @@
+# Cloudflare Workers 静态站点配置
+name = "hooli-blog"
+compatibility_date = "2026-01-01"
+
+[assets]
+directory = "./public"
