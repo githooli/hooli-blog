@@ -2,7 +2,7 @@ backend:
   name: github
   repo: githooli/hooli-blog
   branch: main
-  base_url: https://hooli-cms-auth.17708744.workers.dev
+  base_url: https://auth.hooli.cc
   auth_endpoint: auth
 
 # 图片会存到 static/img，页面里用 /img/xxx 引用
