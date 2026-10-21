@@ -1,0 +1,100 @@
+baseURL = "https://hooli.cc/"
+languageCode = "zh-cn"
+defaultContentLanguage = "zh"
+hasCJKLanguage = true
+title = "hooli"
+theme = "stack"
+enableRobotsTXT = true
+paginate = 12
+summaryLength = 40
+
+[params]
+  mainSections = ["post"]
+  description = "记录生活，分享音乐与影像"
+  author = "hooli"
+
+  [params.dateFormat]
+    published = "2006-01-02"
+    lastUpdated = "2006-01-02 15:04"
+
+  [params.sidebar]
+    emoji = "🍞"
+    subtitle = "记录生活 · 分享音乐与影像"
+
+  [params.sidebar.compact]
+    showOnHome = false
+    showOnPost = true
+
+  [params.footer]
+    since = 2026
+
+  [params.article]
+    readingTime = true
+    math = false
+    toc = true
+    [params.article.license]
+      enabled = false
+    [params.article.headingAnchor]
+      enabled = true
+      icon = "#"
+
+  [params.comments]
+    enabled = false
+
+  [params.widgets]
+    homepage = [
+      { type = "search" },
+      { type = "archives", params = { limit = 5 } },
+      { type = "categories", params = { limit = 10 } },
+      { type = "tag-cloud", params = { limit = 10 } },
+    ]
+    page = [{ type = "toc" }]
+
+  [params.colorScheme]
+    toggle = true
+    default = "dark"
+
+  [params.imageProcessing]
+    cover = false
+
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = true
+  [markup.tableOfContents]
+    endLevel = 3
+    ordered = false
+    startLevel = 2
+
+[languages]
+  [languages.zh]
+    languageName = "简体中文"
+    weight = 1
+    title = "hooli"
+    [languages.zh.params]
+      description = "记录生活，分享音乐与影像"
+    [languages.zh.menu]
+      [[languages.zh.menu.main]]
+        identifier = "home"
+        name = "首页"
+        url = "/"
+        weight = 1
+      [[languages.zh.menu.main]]
+        identifier = "life"
+        name = "生活"
+        url = "/categories/生活/"
+        weight = 2
+      [[languages.zh.menu.main]]
+        identifier = "music"
+        name = "音乐"
+        url = "/categories/音乐/"
+        weight = 3
+      [[languages.zh.menu.main]]
+        identifier = "archives"
+        name = "归档"
+        url = "/archives/"
+        weight = 4
+      [[languages.zh.menu.main]]
+        identifier = "about"
+        name = "关于"
+        url = "/about/"
+        weight = 5

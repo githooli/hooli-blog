@@ -1,0 +1,90 @@
+// ============================================
+// hooli.cc 自定义样式
+// 黑色系主题：深黑底 + 暖橙点缀，贴近 Lofter 卡片流观感
+// ============================================
+
+:root {
+    --body-background: #f7f7f8;
+    --card-background: #ffffff;
+    --accent-color: #d97706;
+    --accent-color-darker: #b45309;
+    --accent-color-text: #fff;
+}
+
+[data-scheme="dark"] {
+    --body-background: #0d0d0f;
+    --card-background: #17171a;
+    --card-background-selected: #1f1f23;
+    --accent-color: #f59e0b;
+    --accent-color-darker: #fbbf24;
+    --accent-color-text: #12121a;
+    --body-text-color: #e8e8ea;
+    --card-text-color-main: #eaeaec;
+    --card-text-color-secondary: #a3a3ab;
+    --card-text-color-tertiary: #6f6f78;
+    --card-separator-color: rgba(255, 255, 255, 0.08);
+}
+
+// 卡片圆角 + 微光边框，黑色背景上更立体
+[data-scheme="dark"] .article-list article,
+[data-scheme="dark"] .widget,
+[data-scheme="dark"] .article-page {
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 14px;
+    transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+[data-scheme="dark"] .article-list article:hover {
+    border-color: rgba(245, 158, 11, 0.35);
+    transform: translateY(-2px);
+}
+
+// 正文排版：中文阅读体验优化
+.article-content {
+    font-size: 1.7rem;
+    line-height: 1.95;
+    letter-spacing: 0.02em;
+}
+
+.article-content h2 {
+    margin-top: 2.4em;
+    padding-bottom: 0.3em;
+    border-bottom: 2px solid var(--accent-color);
+    display: inline-block;
+}
+
+.article-content img {
+    border-radius: 10px;
+    margin: 1.5em auto;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+}
+
+// 网易云音乐外链播放器：自适应 + 居中
+.article-content iframe[src*="music.163.com"],
+.article-content iframe[src*="y.qq.com"] {
+    display: block;
+    width: 100% !important;
+    max-width: 100%;
+    margin: 1.8em auto;
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 4px 28px rgba(0, 0, 0, 0.4);
+}
+
+// 图片说明文字
+.article-content em {
+    color: var(--card-text-color-secondary);
+}
+
+// 首页大标题字重
+.site-name {
+    letter-spacing: 0.06em;
+    font-weight: 700;
+}
+
+// 标签和分类胶囊
+.article-tags a,
+.tagCloud-tag {
+    border-radius: 999px !important;
+    padding: 0.25em 0.9em !important;
+}

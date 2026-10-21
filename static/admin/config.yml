@@ -1,0 +1,49 @@
+backend:
+  name: github
+  repo: YOUR_GITHUB_USER/hooli-blog
+  branch: main
+  base_url: https://hooli-oauth.YOUR_SUBDOMAIN.workers.dev
+  auth_endpoint: auth
+
+# 图片过大自动压缩
+media_folder: static/img
+public_folder: /img
+
+# 中文界面
+locale: zh_Hans
+
+collections:
+  - name: post
+    label: 文章
+    label_singular: 文章
+    folder: content/post
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    preview_path: post/{{slug}}
+    sortable_fields: [date, title]
+    fields:
+      - { label: 标题, name: title, widget: string }
+      - { label: 摘要, name: description, widget: text, required: false }
+      - label: 发布时间
+        name: date
+        widget: datetime
+        date_format: YYYY-MM-DD
+        time_format: HH:mm
+        format: YYYY-MM-DDTHH:mm:ss+08:00
+      - label: 分类
+        name: categories
+        widget: select
+        options: [生活, 音乐, 影像, 随笔]
+        default: 生活
+      - { label: 标签, name: tags, widget: list, required: false, default: [] }
+      - { label: 封面图, name: image, widget: image, required: false }
+      - { label: 正文, name: body, widget: markdown }
+      - { label: 草稿, name: draft, widget: boolean, default: false }
+
+  - name: page
+    label: 独立页面
+    folder: content/page
+    create: false
+    fields:
+      - { label: 标题, name: title, widget: string }
+      - { label: 正文, name: body, widget: markdown }
