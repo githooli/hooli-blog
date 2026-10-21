@@ -1,0 +1,3 @@
+{{/* 覆盖主题默认样式加载：使用预编译好的 CSS，避免构建时依赖 Hugo extended (SCSS) */}}
+{{ $style := resources.Get "css/style.css" | minify | resources.Fingerprint "sha256" }}
+<link rel="stylesheet" href="{{ $style.RelPermalink }}">
