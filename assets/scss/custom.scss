@@ -1,42 +1,118 @@
 // ============================================
 // hooli.cc 自定义样式
-// 黑色系主题：深黑底 + 暖橙点缀，贴近 Lofter 卡片流观感
+// 极简纯黑：纯黑背景 + 无侧栏 + 暖橙点缀
 // ============================================
 
 :root {
-    --body-background: #f7f7f8;
+    --body-background: #ffffff;
     --card-background: #ffffff;
     --accent-color: #d97706;
     --accent-color-darker: #b45309;
     --accent-color-text: #fff;
 }
 
-[data-scheme="dark"] {
-    --body-background: #0d0d0f;
-    --card-background: #17171a;
-    --card-background-selected: #1f1f23;
+:root[data-scheme="dark"] {
+    // 纯黑：背景、卡片统一到 #000，靠留白和字色层级区分，不做灰底
+    --body-background: #000000;
+    --card-background: #000000;
+    --card-background-selected: #0a0a0a;
     --accent-color: #f59e0b;
     --accent-color-darker: #fbbf24;
-    --accent-color-text: #12121a;
-    --body-text-color: #e8e8ea;
-    --card-text-color-main: #eaeaec;
-    --card-text-color-secondary: #a3a3ab;
-    --card-text-color-tertiary: #6f6f78;
-    --card-separator-color: rgba(255, 255, 255, 0.08);
+    --accent-color-text: #000000;
+    --body-text-color: #ededed;
+    --card-text-color-main: #f2f2f2;
+    --card-text-color-secondary: #9a9a9a;
+    --card-text-color-tertiary: #6b6b6b;
+    --card-separator-color: rgba(255, 255, 255, 0.1);
 }
 
-// 卡片圆角 + 微光边框，黑色背景上更立体
-[data-scheme="dark"] .article-list article,
-[data-scheme="dark"] .widget,
-[data-scheme="dark"] .article-page {
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 14px;
-    transition: border-color 0.25s ease, transform 0.25s ease;
+// 极简：去掉所有卡片底色/边框/圆角，让内容直接铺在纯黑上
+:root[data-scheme="dark"] .article-list article,
+:root[data-scheme="dark"] .article-page,
+:root[data-scheme="dark"] .widget {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding-left: 0;
+    padding-right: 0;
 }
 
-[data-scheme="dark"] .article-list article:hover {
-    border-color: rgba(245, 158, 11, 0.35);
-    transform: translateY(-2px);
+:root[data-scheme="dark"] .article-list article:hover {
+    border-color: transparent !important;
+    transform: none;
+}
+
+// 首页列表用分隔线代替卡片
+:root[data-scheme="dark"] .article-list article + article {
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+    padding-top: 28px;
+    margin-top: 28px;
+}
+
+:root[data-scheme="dark"] .article-list article:hover {
+    --card-text-color-main: #fbbf24;
+}
+
+// 无侧栏后的内容宽度与留白
+.container.main-container.minimal {
+    display: block;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+}
+
+.container.main-container.minimal .main.full-width {
+    width: 100%;
+    max-width: 100%;
+}
+
+// 极简页头：站点名 + 返回
+.minimal-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 48px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--card-separator-color);
+}
+
+.minimal-header__brand {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--card-text-color-main);
+    text-decoration: none;
+    line-height: 1.2;
+}
+
+.minimal-header__brand:hover {
+    color: var(--accent-color);
+}
+
+.minimal-header__sub {
+    font-size: 1.3rem;
+    color: var(--card-text-color-tertiary);
+    white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+    .container.main-container.minimal {
+        padding: 28px 18px 60px;
+    }
+
+    .minimal-header {
+        margin-bottom: 32px;
+    }
+
+    .minimal-header__brand {
+        font-size: 1.9rem;
+    }
+
+    .minimal-header__sub {
+        font-size: 1.2rem;
+    }
 }
 
 // 正文排版：中文阅读体验优化
@@ -88,7 +164,7 @@
     transition: border-color 0.25s ease;
 }
 
-[data-scheme="light"] .mplayer {
+:root[data-scheme="light"] .mplayer {
     border-color: rgba(0, 0, 0, 0.08);
     background: rgba(0, 0, 0, 0.015);
 }
@@ -188,7 +264,7 @@
     position: relative;
 }
 
-[data-scheme="light"] .mplayer__track {
+:root[data-scheme="light"] .mplayer__track {
     background: rgba(0, 0, 0, 0.1);
 }
 

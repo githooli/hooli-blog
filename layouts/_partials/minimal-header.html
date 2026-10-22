@@ -1,0 +1,8 @@
+<header class="minimal-header">
+  <a class="minimal-header__brand" href="{{ .Site.Home.RelPermalink }}">{{ .Site.Title }}</a>
+  {{- if not .IsHome }}
+  <a class="minimal-header__sub" href="{{ .Site.Home.RelPermalink }}">← 全部</a>
+  {{- else }}
+  <span class="minimal-header__sub">{{ .Site.Params.sidebar.subtitle }}</span>
+  {{- end }}
+</header>
