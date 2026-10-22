@@ -1,47 +1,32 @@
 {{- /*
-  网易云音乐播放器短代码
+  网易云音乐播放器短代码（原生实现，不依赖网易云 iframe）
+
   用法：
-    {{< music id="1824045033" >}}
-    {{< music id="1824045033" name="漠河舞厅" artist="柳爽" >}}
-    {{< music id="1824045033" type="2" auto="1" >}}
+    {{< music id="1330348068" name="起风了" artist="买辣椒也用券" >}}
+    {{< music id="1430319727" name="漠河舞厅" artist="柳爽" >}}
 
   参数：
-    id     必填，歌曲 ID（type=2 时是歌曲ID，type=1 时是歌单ID）
-    type   1=歌单 2=单曲 3=专辑 4=电台 默认 2
-    auto   1=自动播放 0=不自动 默认 0
+    id     必填，歌曲 ID
+    name   歌名，可选
+    artist 歌手，可选
 
-  说明：网易云对手机 UA 返回空的外链页面（逼用户装 App），所以移动端
-  不渲染 iframe，改用歌曲卡片 + 跳转按钮（见 custom.scss 的 media query）。
+  音频由 Worker 解析后 302 到网易云 CDN，浏览器直接播放，
+  手机/电脑都不用跳出去。
 */ -}}
 {{- $id := .Get "id" -}}
-{{- $type := .Get "type" | default "2" -}}
-{{- $auto := .Get "auto" | default "0" -}}
-{{- $name := .Get "name" -}}
-{{- $artist := .Get "artist" -}}
-{{- $height := cond (eq $type "2") "110" "450" -}}
-<div class="music-card">
-  {{- with $name }}
-  <div class="music-card__meta">
-    <span class="music-card__title">{{ . }}</span>
-    {{- with $artist }}<span class="music-card__artist">{{ . }}</span>{{ end }}
+{{- $name := .Get "name" | default "未知歌曲" -}}
+{{- $artist := .Get "artist" | default "" -}}
+<div class="mplayer" data-id="{{ $id }}" data-name="{{ $name }}" data-artist="{{ $artist }}">
+  <audio class="mplayer__audio" preload="none"></audio>
+  <button class="mplayer__btn" type="button" aria-label="播放 {{ $name }}">
+    <span class="mplayer__icon">▶</span>
+  </button>
+  <div class="mplayer__body">
+    <div class="mplayer__title">{{ $name }}{{ with $artist }}<span class="mplayer__artist">{{ . }}</span>{{ end }}</div>
+    <div class="mplayer__bar">
+      <span class="mplayer__time mplayer__time--cur">0:00</span>
+      <div class="mplayer__track"><div class="mplayer__progress"></div></div>
+      <span class="mplayer__time mplayer__time--dur">--:--</span>
+    </div>
   </div>
-  {{- end }}
-  <div class="music-card__embed">
-    <iframe
-      class="music-card__player"
-      frameborder="no"
-      border="0"
-      marginwidth="0"
-      marginheight="0"
-      width="100%"
-      height="{{ $height }}"
-      src="//music.163.com/outchain/player?type={{ $type }}&id={{ $id }}&auto={{ $auto }}&height={{ cond (eq $type "2") "66" "430" }}"
-      loading="lazy"
-      allow="autoplay"
-    ></iframe>
-  </div>
-  <a class="music-card__mobile" href="https://music.163.com/song?id={{ $id }}" target="_blank" rel="noopener">
-    <span class="music-card__playicon">▶</span>
-    <span>在网易云里播放{{ with $name }}《{{ . }}》{{ end }}</span>
-  </a>
 </div>

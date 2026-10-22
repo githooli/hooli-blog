@@ -71,102 +71,169 @@
     box-shadow: 0 4px 28px rgba(0, 0, 0, 0.4);
 }
 
-// 音乐卡片（music 短代码）：标题 + 播放器，卡片式包一层
-.music-card {
+// ============================================
+// 原生音乐播放器（music 短代码）
+// 不用网易云 iframe：手机 UA 返回空白页、播放接口屏蔽机房 IP
+// ============================================
+
+.mplayer {
+    display: flex;
+    align-items: center;
+    gap: 14px;
     margin: 1.8em 0;
-    padding: 14px;
+    padding: 14px 16px;
     border: 1px solid rgba(255, 255, 255, 0.07);
     border-radius: 14px;
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(255, 255, 255, 0.025);
+    transition: border-color 0.25s ease;
 }
 
-[data-scheme="light"] .music-card {
+[data-scheme="light"] .mplayer {
     border-color: rgba(0, 0, 0, 0.08);
     background: rgba(0, 0, 0, 0.015);
 }
 
-.music-card__meta {
-    display: flex;
-    align-items: baseline;
-    gap: 0.6em;
-    flex-wrap: wrap;
-    margin-bottom: 10px;
-    line-height: 1.4;
+.mplayer.is-playing {
+    border-color: rgba(245, 158, 11, 0.45);
 }
 
-.music-card__title {
-    font-size: 1.45rem;
-    font-weight: 600;
-    color: var(--card-text-color-main);
-}
-
-.music-card__artist {
-    font-size: 1.25rem;
-    color: var(--card-text-color-secondary);
-}
-
-.music-card__player {
-    display: block;
-    width: 100% !important;
-    border: none;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-// 移动端跳转按钮：默认隐藏，窄屏时替换 iframe（网易云手机 UA 返回空白页，没法内嵌）
-.music-card__mobile {
+.mplayer__audio {
     display: none;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 16px;
-    border-radius: 10px;
-    background: rgba(245, 158, 11, 0.12);
-    border: 1px solid rgba(245, 158, 11, 0.4);
-    color: var(--accent-color);
-    font-size: 1.4rem;
-    font-weight: 500;
-    text-decoration: none;
-    line-height: 1.4;
 }
 
-.music-card__mobile:active {
-    filter: brightness(0.88);
-}
-
-.music-card__playicon {
+// 播放按钮
+.mplayer__btn {
+    flex: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 30px;
-    height: 30px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: none;
     border-radius: 999px;
     background: var(--accent-color);
     color: #1a1200;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.mplayer__btn:hover {
+    filter: brightness(1.08);
+}
+
+.mplayer__btn:active {
+    transform: scale(0.94);
+}
+
+.mplayer__icon {
+    display: block;
+    // 播放三角形视觉重心偏左，微调一下
+    transform: translateX(1px);
+}
+
+.mplayer.is-playing .mplayer__icon {
+    transform: none;
+    font-size: 1.25rem;
+    letter-spacing: -1px;
+}
+
+// 右侧内容
+.mplayer__body {
+    flex: 1;
+    min-width: 0;
+}
+
+.mplayer__title {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5em;
+    flex-wrap: wrap;
+    font-size: 1.45rem;
+    font-weight: 600;
+    color: var(--card-text-color-main);
+    line-height: 1.4;
+    margin-bottom: 8px;
+}
+
+.mplayer__artist {
     font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--card-text-color-secondary);
+}
+
+.mplayer__bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mplayer__time {
     flex: none;
+    font-size: 1.15rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--card-text-color-tertiary);
+    min-width: 3.2em;
+    text-align: center;
 }
 
-[data-scheme="light"] .music-card__mobile {
-    background: rgba(217, 119, 6, 0.08);
-    border-color: rgba(217, 119, 6, 0.35);
+.mplayer__track {
+    flex: 1;
+    height: 4px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+    cursor: pointer;
+    position: relative;
 }
 
-@media (max-width: 768px) {
-    .music-card__embed {
-        display: none;
+[data-scheme="light"] .mplayer__track {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+// 扩大点击热区，手机上更好点
+.mplayer__track::before {
+    content: "";
+    position: absolute;
+    inset: -10px 0;
+}
+
+.mplayer__progress {
+    width: 0;
+    height: 100%;
+    border-radius: 999px;
+    background: var(--accent-color);
+    transition: width 0.1s linear;
+}
+
+.mplayer.is-error .mplayer__title::after {
+    content: "（音频暂不可用）";
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--card-text-color-tertiary);
+}
+
+// 手机端：字号略收，按钮保持好点
+@media (max-width: 480px) {
+    .mplayer {
+        gap: 12px;
+        padding: 12px 14px;
     }
 
-    .music-card__mobile {
-        display: flex;
+    .mplayer__btn {
+        width: 40px;
+        height: 40px;
+    }
+
+    .mplayer__title {
+        font-size: 1.35rem;
+    }
+
+    .mplayer__artist {
+        font-size: 1.15rem;
     }
 }
-
-// 短代码内的播放器不要再叠一层 margin / 阴影
-.music-card .music-card__player {
-    margin: 0;
-    box-shadow: none;
-}
-
 
 // 图片说明文字
 .article-content em {
